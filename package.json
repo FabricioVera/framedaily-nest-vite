@@ -1,0 +1,24 @@
+{
+  "name": "framedaily",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Un juego para adivinar el personaje del día",
+  "scripts": {
+    "dev": "pnpm --parallel --stream dev",
+    "build": "pnpm --stream -r build",
+    "typeorm": "pnpm --filter api typeorm",
+    "db:migration:generate": "pnpm typeorm -- -d packages/api/dist/data-source.js migration:generate",
+    "db:migration:run": "pnpm typeorm -- migration:run -d packages/api/dist/data-source.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
