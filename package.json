@@ -4,13 +4,14 @@
   "private": true,
   "description": "Un juego para adivinar el personaje del día",
   "scripts": {
-    "dev": "pnpm --parallel --stream dev",
-    "build": "pnpm --stream -r build",
+    "dev": "tsup src/index.ts --watch",
+    "build": "tsup",
     "typeorm": "pnpm --filter api typeorm",
     "db:migration:generate": "pnpm typeorm -- -d packages/api/dist/data-source.js migration:generate",
     "db:migration:run": "pnpm typeorm -- migration:run -d packages/api/dist/data-source.js"
   },
   "devDependencies": {
+    "tsup": "^8.5.0",
     "typescript": "^5.2.2"
   },
   "engines": {
@@ -20,5 +21,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
 }
