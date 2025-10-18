@@ -4,10 +4,16 @@ import type { Character } from './character';
 
 @Controller('warframe-quiz')
 export class WarframeQuizController {
-    constructor(private readonly warframeQuizService: WarframeQuizService) {}
+  constructor(private readonly warframeQuizService: WarframeQuizService) {}
 
-    @Get('daily')
-    getDailyWarframe(): Character {
-        return this.warframeQuizService.getDailyWarframe();
-    }
+  @Get('daily')
+  getDailyWarframe() {
+    return this.warframeQuizService.getDailyWarframe();
+  }
+
+  @Get('random')
+  async getRandomWarframe() {
+    const warframe = await this.warframeQuizService.getRandomWarframe();
+    return warframe;
+  }
 }
