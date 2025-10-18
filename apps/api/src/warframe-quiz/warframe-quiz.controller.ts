@@ -1,6 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { WarframeQuizService } from './warframe-quiz.service';
-import type { Character } from './character';
 
 @Controller('warframe-quiz')
 export class WarframeQuizController {
@@ -15,5 +14,10 @@ export class WarframeQuizController {
   async getRandomWarframe() {
     const warframe = await this.warframeQuizService.getRandomWarframe();
     return warframe;
+  }
+
+  @Post('guess')
+  async checkAnswer(@Body() body: { id: number; guess: string }) {
+    return this.warframeQuizService.checkAnswer(body.id, body.guess);
   }
 }

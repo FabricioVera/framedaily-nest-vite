@@ -9,8 +9,11 @@ async function seedWarframes() {
   );
 
   const values = data.map((wf) => ({
+    wikiaThumbnail: wf.wikiaThumbnail,
     name: wf.name,
     type: wf.type,
+    aura: wf.aura,
+    releaseYear: wf.releaseYear,
     description: wf.description,
     health: wf.health,
     armor: wf.armor,

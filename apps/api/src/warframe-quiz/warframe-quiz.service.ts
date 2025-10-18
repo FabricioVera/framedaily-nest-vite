@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { characters, type Character } from './character';
 import { db } from '../data-source';
-import { sql } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { warframes } from '../database/schema/warframes.schema';
 
 @Injectable()
@@ -14,12 +13,18 @@ export class WarframeQuizService {
     return today % charactersLenght;
   }
 
-  async getDailyWarframe() {
-    const today = this.getDay();
+  async getDataLength(): Promise<number> {
     const [{ count }] = await db
       .select({ count: sql<number>`count(*)` })
       .from(warframes);
-    const index = this.getIndex(today, count);
+
+    return count;
+  }
+
+  async getDailyWarframe() {
+    const today = this.getDay();
+    const length = await this.getDataLength();
+    const index = this.getIndex(today, length);
 
     const [wf] = await db
       .select()
@@ -30,16 +35,31 @@ export class WarframeQuizService {
   }
 
   async getRandomWarframe() {
-    const [{ count }] = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(warframes);
-    const randomId = Math.floor(Math.random() * count) + 1;
+    const length = await this.getDataLength();
+    const randomId = Math.floor(Math.random() * length) + 1;
 
     const [wf] = await db
       .select()
       .from(warframes)
       .where(sql`id = ${randomId}`);
 
-    return wf;
+    return {
+      id: wf.id,
+      description: wf.description,
+      type: wf.type,
+      isPrime: wf.isPrime,
+    };
+  }
+
+  async checkAnswer(id: number, guess: string) {
+    const [wf] = await db.select().from(warframes).where(eq(warframes.id, id));
+
+    if (!wf) return { correct: false, message: 'No se encontró el warframe.' };
+
+    const correct = wf.name.toLowerCase() === guess.trim().toLowerCase();
+    return {
+      correct,
+      correctName: wf.name,
+    };
   }
 }
