@@ -1,4 +1,4 @@
-export interface WarframeDTO {
+export interface WarframeDto {
   id: number;
   wikiaThumbnail: string | null;
   name: string;

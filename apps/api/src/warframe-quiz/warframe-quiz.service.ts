@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { db } from '../data-source';
 import { eq, sql } from 'drizzle-orm';
 import { warframes } from '../database/schema/warframes.schema';
-import { WarframeDTO } from 'shared/src/dtos/warframe.dto';
+import { WarframeDto } from 'shared/src/dtos/warframe.dto';
 
 @Injectable()
 export class WarframeQuizService {
