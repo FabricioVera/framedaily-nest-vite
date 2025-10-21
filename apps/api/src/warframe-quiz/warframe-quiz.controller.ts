@@ -12,8 +12,7 @@ export class WarframeQuizController {
 
   @Get('random')
   async getRandomWarframe() {
-    const warframe = await this.warframeQuizService.getRandomWarframe();
-    return warframe;
+    return this.warframeQuizService.getRandomWarframe();
   }
 
   @Post('guess')

@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { db } from '../data-source';
-import { eq, sql } from 'drizzle-orm';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { warframes } from '../database/schema/warframes.schema';
-import { WarframeDto } from 'shared/src/dtos/warframe.dto';
+import { WarframesRepository } from './warframes.repository';
 
 @Injectable()
 export class WarframeQuizService {
+  constructor(private readonly warframesRepo: WarframesRepository) {}
+
   getDay(): any {
     return new Date().getDate();
   }
@@ -14,53 +14,27 @@ export class WarframeQuizService {
     return today % charactersLenght;
   }
 
-  async getDataLength(): Promise<number> {
-    const [{ count }] = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(warframes);
-
-    return count;
-  }
-
   async getDailyWarframe() {
     const today = this.getDay();
-    const length = await this.getDataLength();
+    const length = await this.warframesRepo.countAll();
     const index = this.getIndex(today, length);
-
-    const [wf] = await db
-      .select()
-      .from(warframes)
-      .where(sql`id = ${index}`);
-
-    return wf;
+    return await this.warframesRepo.findById(index);
   }
 
   async getRandomWarframe() {
-    const length = await this.getDataLength();
+    const length = await this.warframesRepo.countAll();
     const randomId = Math.floor(Math.random() * length) + 1;
-
-    const [wf] = await db
-      .select()
-      .from(warframes)
-      .where(sql`id = ${randomId}`);
-
-    return {
-      id: wf.id,
-      description: wf.description,
-      type: wf.type,
-      isPrime: wf.isPrime,
-    };
+    return await this.warframesRepo.findById(randomId);
   }
 
   async checkAnswer(id: number, guess: string) {
-    const [wf] = await db.select().from(warframes).where(eq(warframes.id, id));
+    const guessedWarframe = await this.warframesRepo.findByName(guess);
+    const dailyWarframe = await this.warframesRepo.findById(id);
 
-    if (!wf) return { correct: false, message: 'No se encontró el warframe.' };
+    const correct =
+      guessedWarframe.name?.trim().toLowerCase() ===
+      dailyWarframe.name?.trim().toLowerCase();
 
-    const correct = wf.name.toLowerCase() === guess.trim().toLowerCase();
-    return {
-      correct,
-      correctName: wf.name,
-    };
+    return { ...guessedWarframe, correct };
   }
 }
