@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import type {WarframeDTO} from 'shared/src/dtos/warframe.dto'
 
 function App() {
   const [count, setCount] = useState(0)

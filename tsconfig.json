@@ -1,9 +1,6 @@
 {
-  /*
-    Esta es la configuración base de TypeScript para todo el monorepo.
-    Los tsconfig.json de cada paquete extenderán de este.
-  */
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "module": "commonjs",
     "strict": true,
@@ -12,6 +9,9 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "sourceMap": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["packages/shared/*"]
+    }
   }
 }
