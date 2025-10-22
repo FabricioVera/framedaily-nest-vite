@@ -35,7 +35,7 @@ function App() {
   if (error) return <p className="text-red-400">Error: {error}</p>;
 
   return (
-    <main className="bg-gray-900 text-white flex flex-col items-center p-8 min-h-screen">
+    <body className="bg-gray-800 text-white flex flex-col items-center p-8 min-h-screen w-full">
         <h1 className="text-3xl font-bold mb-6">Adivina el Warframe del Día</h1>
 
         {isCorrect && dailyWarframe && <CorrectWarframeCard warframe={dailyWarframe} />}
@@ -44,7 +44,7 @@ function App() {
 
         <WarframeTable guessedWarframes={guessedWarframes} />
       
-    </main>
+    </body>
   );
 }
 

@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+
 
 interface GuessInputProps {
   onGuess: (guess: string) => void;
@@ -15,25 +19,25 @@ export function GuessInput({ onGuess, disabled }: GuessInputProps) {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="flex gap-3 mb-8 w-full max-w-md justify-center"
-        >
-            <input
-                type="text"
-                value={inputValue}
-                disabled={disabled}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Escribe el nombre del Warframe..."
-                className="grow p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-                type="submit"
-                disabled={disabled}
-                className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-            >
-            Adivinar
-            </button>
-        </form>
+        <div className="w-full max-w-md">
+            <form onSubmit={handleSubmit}>   
+                <Field orientation="horizontal">
+                    <Input
+                        type="text"
+                        value={inputValue}
+                        disabled={disabled}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="Escribe el nombre del Warframe..."
+                        required
+                    />
+                    <Button
+                        type="submit"
+                        disabled={disabled}
+                    >
+                    Adivinar
+                    </Button>
+                </Field>
+            </form>
+        </div>
     );
 }
