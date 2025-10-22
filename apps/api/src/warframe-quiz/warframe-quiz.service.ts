@@ -14,6 +14,15 @@ export class WarframeQuizService {
     return today % charactersLenght;
   }
 
+  getYearComparison(
+    guessYear: number,
+    actualYear: number,
+  ): 'lower' | 'equal' | 'higher' {
+    if (guessYear < actualYear) return 'higher';
+    if (guessYear > actualYear) return 'lower';
+    return 'equal';
+  }
+
   async getDailyWarframe() {
     const today = this.getDay();
     const length = await this.warframesRepo.countAll();
@@ -31,10 +40,23 @@ export class WarframeQuizService {
     const guessedWarframe = await this.warframesRepo.findByName(guess);
     const dailyWarframe = await this.warframesRepo.findById(id);
 
-    const correct =
-      guessedWarframe.name?.trim().toLowerCase() ===
-      dailyWarframe.name?.trim().toLowerCase();
+    const compareField = (field: keyof typeof guessedWarframe) =>
+      guessedWarframe[field]?.toString().trim().toLowerCase() ===
+      dailyWarframe[field]?.toString().trim().toLowerCase();
 
-    return { ...guessedWarframe, correct };
+    const fieldMatches = {
+      name: compareField('name'),
+      type: compareField('type'),
+      aura: compareField('aura'),
+      releaseYear: this.getYearComparison(
+        guessedWarframe.releaseYear!,
+        dailyWarframe.releaseYear!,
+      ),
+      isPrime: guessedWarframe.isPrime === dailyWarframe.isPrime,
+    };
+
+    const correct = fieldMatches.name;
+
+    return { ...guessedWarframe, correct, fieldMatches };
   }
 }

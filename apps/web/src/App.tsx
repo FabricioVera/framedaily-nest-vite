@@ -35,7 +35,7 @@ function App() {
   if (error) return <p className="text-red-400">Error: {error}</p>;
 
   return (
-    <main className="bg-linear-to-b from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center h-screen w-screen overflow-x-hidden m-0 p-8">
+    <main className="bg-linear-to-b from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center min-h-screen w-screen overflow-x-hidden m-0 p-8">
         <h1 className="text-3xl font-bold mb-6">Adivina el Warframe del Día</h1>
 
         {isCorrect && dailyWarframe && <CorrectWarframeCard warframe={dailyWarframe} />}

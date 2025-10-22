@@ -8,9 +8,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {ArrowUp, ArrowDown} from 'lucide-react';
+
+interface WarframeWithMatch extends WarframeDto {
+  correct?: boolean;
+  fieldMatches?: {
+    name?: boolean;
+    type?: boolean;
+    aura?: boolean;
+    releaseYear?: string;
+    isPrime?: boolean;
+  };
+}
 
 interface WarframeTableProps {
-    guessedWarframes: WarframeDto[];
+    guessedWarframes: WarframeWithMatch[];
 }
 
 export function WarframeTable({ guessedWarframes }: WarframeTableProps) {
@@ -20,17 +32,26 @@ export function WarframeTable({ guessedWarframes }: WarframeTableProps) {
         );
     }
 
+    const getCellClass = (match?: boolean) => 
+      match ? "bg-teal-700 text-white" : "bg-red-800 text-white opacity-80";
+
+    const getYearIcon = (comparison?: string) => {
+      if (comparison === 'lower') return <ArrowDown className="inline-block ml-1 text-white" size={16} />;
+      if (comparison === 'higher') return <ArrowUp className="inline-block ml-1 text-white" size={16} />;
+      return null;
+    }
+
     return (
-        <div className="overflow-x-auto w-full max-w-4xl">
-        <Table className="min-w-full border border-gray-700 rounded-xl overflow-hidden">
-            <TableHeader className="bg-gray-800">
+        <div className="overflow-x-auto w-full max-w-4xl mt-5">
+        <Table className="min-w-full border border-gray-700 rounded-xl">
+            <TableHeader className="bg-gray-300">
             <TableRow>
-                <TableHead className="px-4 py-2 text-center">Imagen</TableHead>
-                <TableHead className="px-4 py-2 text-center">Nombre</TableHead>
-                <TableHead className="px-4 py-2 text-center">Prime</TableHead>
-                <TableHead className="px-4 py-2 text-center">Tipo</TableHead>
-                <TableHead className="px-4 py-2 text-center">Aura</TableHead>
-                <TableHead className="px-4 py-2 text-center">Año</TableHead>
+                <TableHead className="text-center">Imagen</TableHead>
+                <TableHead className="text-center">Nombre</TableHead>
+                <TableHead className="text-center">Prime</TableHead>
+                <TableHead className="text-center">Tipo</TableHead>
+                <TableHead className="text-center">Aura</TableHead>
+                <TableHead className="text-center">Año</TableHead>
             </TableRow>
             </TableHeader>
             <TableBody>
@@ -42,14 +63,21 @@ export function WarframeTable({ guessedWarframes }: WarframeTableProps) {
               <TableCell className="px-4 py-2">
                 <Avatar className='w-16 h-16 mx-auto'> 
                     <AvatarImage src={w.wikiaThumbnail || undefined} alt={w.name} />
-                    <AvatarFallback>{"No image"}</AvatarFallback>
+                    <AvatarFallback className='text-black'>{"No image"}</AvatarFallback>
                 </Avatar>
               </TableCell>
-              <TableCell className="px-4 py-2">{w.name}</TableCell>
-              <TableCell className="px-4 py-2">{w.isPrime ? "Sí" : "No"}</TableCell>
-              <TableCell className="px-4 py-2">{w.type}</TableCell>
-              <TableCell className="px-4 py-2">{w.aura}</TableCell>
-              <TableCell className="px-4 py-2">{w.releaseYear}</TableCell>
+              <TableCell className={`${getCellClass(w.fieldMatches?.name)} text-center`}>{w.name}</TableCell>
+              <TableCell className={`${getCellClass(w.fieldMatches?.isPrime)} text-center`}>{w.isPrime ? "Sí" : "No"}</TableCell>
+              <TableCell className={`${getCellClass(w.fieldMatches?.type)} text-center`}>{w.type}</TableCell>
+              <TableCell className={`${getCellClass(w.fieldMatches?.aura)} text-center`}>{w.aura}</TableCell>
+              <TableCell className={` 
+              px-4 py-2 relative text-center 
+              ${w.fieldMatches?.releaseYear === 'lower' || w.fieldMatches?.releaseYear === 'higher' ? 'bg-red-800 text-white opacity-80': ''}
+              ${w.fieldMatches?.releaseYear === 'equal' ? 'bg-teal-700 text-white' : ''}
+              `}>
+              {w.releaseYear}
+              {getYearIcon(w.fieldMatches?.releaseYear)}
+            </TableCell>
             </TableRow>
           ))}
         </TableBody>

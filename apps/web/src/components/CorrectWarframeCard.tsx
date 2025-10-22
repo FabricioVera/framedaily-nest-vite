@@ -14,11 +14,11 @@ interface Props {
 
 export function CorrectWarframeCard({ warframe }: Props) {
   return (
-    <Card className="m-5 text-center">
+    <Card className="m-5 p-5 text-center bg-emerald-900">
         <CardHeader>
-            <CardTitle>¡Has adivinado el Warframe del día!</CardTitle>
+            <CardTitle className="text-white">¡Has adivinado el Warframe del día!</CardTitle>
         </CardHeader>
-      <CardDescription className="text-2xl font-semibold mb-3 text-green-400">
+      <CardDescription className="text-2xl font-semibold mb-3 text-green-300">
         ¡Correcto! Era {warframe.name} 
       </CardDescription>
       <CardContent>
