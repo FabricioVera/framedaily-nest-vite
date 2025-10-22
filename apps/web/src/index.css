@@ -13,7 +13,24 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
+
+html, body, div#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+}
+
 
 a {
   font-weight: 500;
