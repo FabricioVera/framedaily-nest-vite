@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { GuessInput } from "./components/GuessInput";
-import { WarframeTable } from "./components/WarframeTable";
+import { WarframeTable } from "./components/WarframeTable/WarframeTable";
 import type {WarframeDto} from 'shared/src/dtos/warframe.dto'
 import { useDailyWarframe } from './features/warframes/hooks/useDailyWarframe';
 import { CorrectWarframeCard } from './components/CorrectWarframeCard';
