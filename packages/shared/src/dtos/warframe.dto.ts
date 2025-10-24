@@ -10,7 +10,7 @@ export interface WarframeDto {
   health: number | null;
   armor: number | null;
   shield: number | null;
-  sprintSpeed: Float16Array | null;
+  sprintSpeed: string | null;
   releaseDate: string | null;
   polarities: string[] | null;
   sex: string | null;

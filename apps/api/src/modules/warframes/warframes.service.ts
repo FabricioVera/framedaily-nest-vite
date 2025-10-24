@@ -1,17 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { WarframesRepository } from './warframes.repository';
+import { UtilsService } from '../../utils/utils.service';
 
 @Injectable()
 export class WarframesService {
-  constructor(private readonly warframesRepo: WarframesRepository) {}
-
-  getDay(): any {
-    return new Date().getDate();
-  }
-
-  getIndex(today: any, charactersLenght: number): number {
-    return today % charactersLenght;
-  }
+  constructor(
+    private readonly warframesRepo: WarframesRepository,
+    private utilities: UtilsService,
+  ) {}
 
   getYearComparison(
     guessYear: number,
@@ -23,9 +19,12 @@ export class WarframesService {
   }
 
   async getDailyWarframe() {
-    const today = this.getDay();
     const length = await this.warframesRepo.countAll();
-    const index = this.getIndex(today, length);
+    const index = this.utilities.getDailyRandomNumber(
+      0,
+      length,
+      'warframe-of-the-day',
+    );
     return await this.warframesRepo.findById(index);
   }
 
