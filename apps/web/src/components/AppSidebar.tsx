@@ -1,20 +1,73 @@
-import { Sidebar, SidebarContent, SidebarHeader, SidebarGroup } from "./ui/sidebar";
+import React from "react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarMenu,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import {
+  HomeIcon,
+  ShovelIcon,
+  SparklesIcon,
+} from "lucide-react";
+
+const sidebarData = {
+  header: "FrameDaily",
+  navMain: [
+    {
+      label: "Inicio",
+      href: "#",
+      icon: HomeIcon,
+    },
+    {
+      label: "Warframes",
+      href: "#",
+      icon: ShovelIcon,
+    },
+    {
+      label: "Habilidades",
+      href: "#",
+      icon: SparklesIcon,
+    },
+  ],
+};
 
 function AppSidebar() {
-    return (
-        <Sidebar className="shadow-lg">
-            <SidebarHeader>
-                <h1 className="font-bold">FrameDaily</h1>
-            </SidebarHeader>
-            <SidebarContent>
-                <SidebarGroup title="Navegación">
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-700 rounded">Inicio</a>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-700 rounded">Warframes</a>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-700 rounded">Habilidades</a>
-                </SidebarGroup>
-            </SidebarContent>
-        </Sidebar>
-    );
+  return (
+    <Sidebar collapsible="icon">
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>
+            {sidebarData.header}
+          </SidebarGroupLabel>
+
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {sidebarData.navMain.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.href}>
+                      <item.icon className="w-5 h-5 text-(--color-primary) opacity-80" />
+                      <span className="text-sm font-medium">
+                        {item.label}
+                      </span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  );
 }
+
+AppSidebar.Trigger = SidebarTrigger;
 
 export default AppSidebar;

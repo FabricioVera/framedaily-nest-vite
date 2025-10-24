@@ -13,6 +13,7 @@ interface WarframeTableProps {
 const warframeColumns : Column[]= [
   { key: "wikiaThumbnail", label: "Imagen"},
   { key: "name", label: "Nombre" },
+  { key: "sex", label: "Genero" },
   { key: "isPrime", label: "Prime" },
   { key: "type", label: "Tipo" },
   { key: "aura", label: "Aura" },
