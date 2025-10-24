@@ -9,13 +9,13 @@ createRoot(
   document.getElementById("root")!
 ).render(
   <StrictMode>
-    <SidebarProvider defaultOpen={true}>
-      <div className="flex min-h-screen">
+    <SidebarProvider defaultOpen={false}>
+      <div className="relative min-h-screen">
         <AppSidebar />
-        <div className="flex-1 relative">
-          <div className="absolute top-4 left-4 z-50">
-            <AppSidebar.Trigger />
-          </div>
+        <div className="absolute top-4 left-4 z-10">
+          <AppSidebar.Trigger />
+        </div>
+        <div className="relative z-0 flex-1">
           <App />
         </div>
       </div>
