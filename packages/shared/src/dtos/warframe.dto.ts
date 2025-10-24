@@ -1,6 +1,6 @@
 export interface WarframeDto {
   id: number;
-  wikiaThumbnail: string | null;
+  uniqueName: string | null;
   name: string;
   type: string | null;
   isPrime: boolean | null;
@@ -10,9 +10,13 @@ export interface WarframeDto {
   health: number | null;
   armor: number | null;
   shield: number | null;
-  sprintSpeed: string | null;
+  sprintSpeed: Float16Array | null;
   releaseDate: string | null;
+  polarities: string[] | null;
+  sex: string | null;
   imageName: string | null;
+  wikiaThumbnail: string | null;
   wikiUrl: string | null;
+  exalted: string[] | null;
   createdAt: Date | null;
 }
