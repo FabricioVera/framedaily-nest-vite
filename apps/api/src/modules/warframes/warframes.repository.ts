@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { warframes } from '../database/schema/warframes.schema';
-import { db } from '../data-source';
+import { warframes } from '../../database/schema/warframes.schema';
+import { db } from '../../data-source';
 import { sql, eq, ilike } from 'drizzle-orm';
 import { WarframeDto } from 'shared/src/dtos/warframe.dto';
 
@@ -13,7 +13,7 @@ export class WarframesRepository {
     return count;
   }
 
-  async findById(id: number): Promise<Partial<WarframeDto>> {
+  async findById(id: number): Promise<WarframeDto> {
     const [warframe] = await db
       .select()
       .from(warframes)
@@ -24,7 +24,7 @@ export class WarframesRepository {
     return warframe;
   }
 
-  async findByName(name: string): Promise<Partial<WarframeDto>> {
+  async findByName(name: string): Promise<WarframeDto> {
     const [warframe] = await db
       .select()
       .from(warframes)

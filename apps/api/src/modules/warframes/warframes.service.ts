@@ -1,9 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { warframes } from '../database/schema/warframes.schema';
 import { WarframesRepository } from './warframes.repository';
 
 @Injectable()
-export class WarframeQuizService {
+export class WarframesService {
   constructor(private readonly warframesRepo: WarframesRepository) {}
 
   getDay(): any {

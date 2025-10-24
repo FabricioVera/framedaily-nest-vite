@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { WarframeQuizModule } from './warframe-quiz/warframe-quiz.module';
+import { WarframesModule } from './modules/warframes/warframes.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
@@ -11,7 +11,7 @@ import { DatabaseModule } from './database/database.module';
       isGlobal: true,
       envFilePath: '../../../.env',
     }),
-    WarframeQuizModule,
+    WarframesModule,
     DatabaseModule,
   ],
   controllers: [AppController],
