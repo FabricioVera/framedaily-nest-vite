@@ -3,18 +3,18 @@ import './App.css'
 import { GuessInput } from "./components/GuessInput";
 import { WarframeTable } from "./components/WarframeTable/WarframeTable";
 import type {WarframeDto} from 'shared/src/dtos/warframe.dto'
-import { useDailyWarframe } from './features/warframes/hooks/useDailyWarframe';
 import { CorrectWarframeCard } from './components/CorrectWarframeCard';
+import { useDailyObject } from './features/warframes/hooks/useDailyObject';
 
 function App() {
-  const { dailyWarframe, loading, error } = useDailyWarframe();
+  const { dailyObject: dailyWarframe, loading, error } = useDailyObject<WarframeDto>('warframes');
   const [guessedWarframes, setGuessedWarframes] = useState<(WarframeDto & { correct?: boolean })[]>([]);
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(false);
 
   const handleGuess = async (guessName: string) => {
     if (!dailyWarframe) return;
 
-    const response = await fetch('http://localhost:3000/warframe-quiz/guess', {
+    const response = await fetch('http://localhost:3000/warframes/guess', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

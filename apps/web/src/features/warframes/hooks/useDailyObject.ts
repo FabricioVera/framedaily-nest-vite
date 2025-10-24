@@ -1,27 +1,25 @@
 import { useEffect, useState } from "react";
-import type { WarframeDto } from "shared/src/dtos/warframe.dto";
 
-export function useDailyWarframe() {
-  const [dailyWarframe, setDailyWarframe] =
-    useState<WarframeDto | null>(null);
+export function useDailyObject<T>(path: string) {
+  const [dailyObject, setDailyObject] =
+    useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<
     string | null
   >(null);
 
   useEffect(() => {
-    const fetchDailyWarframe = async () => {
+    const fetchDailyObject = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/warframe-quiz/daily"
+          `http://localhost:3000/${path}/daily`
         );
         if (!response.ok)
           throw new Error(
-            "Error al obtener el warframe diario"
+            "Error al obtener el objeto diario"
           );
-        const data: WarframeDto =
-          await response.json();
-        setDailyWarframe(data);
+        const data: T = await response.json();
+        setDailyObject(data);
       } catch (err) {
         setError(
           err instanceof Error
@@ -33,8 +31,8 @@ export function useDailyWarframe() {
       }
     };
 
-    fetchDailyWarframe();
-  }, []);
+    fetchDailyObject();
+  }, [path]);
 
-  return { dailyWarframe, loading, error };
+  return { dailyObject, loading, error };
 }
