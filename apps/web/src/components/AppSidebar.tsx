@@ -39,10 +39,10 @@ const sidebarData = {
 
 function AppSidebar() {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>
+          <SidebarGroupLabel className="text-lg font-bold tracking-wide mb-3 px-3 pt-3">
             {sidebarData.header}
           </SidebarGroupLabel>
 
@@ -51,8 +51,11 @@ function AppSidebar() {
               {sidebarData.navMain.map((item) => (
                 <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton asChild>
-                    <a href={item.href}>
-                      <item.icon className="w-5 h-5 text-(--color-primary) opacity-80" />
+                    <a
+                      href={item.href}
+                      className="gap-3 px-4 transition-all duration-100"
+                    >
+                      <item.icon />
                       <span className="text-sm font-medium">
                         {item.label}
                       </span>

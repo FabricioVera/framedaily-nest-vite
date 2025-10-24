@@ -10,7 +10,7 @@ createRoot(
 ).render(
   <StrictMode>
     <SidebarProvider defaultOpen={true}>
-      <div className="flex min-h-screen bg-main text-text-main font-sans">
+      <div className="flex min-h-screen">
         <AppSidebar />
         <div className="flex-1 relative">
           <div className="absolute top-4 left-4 z-50">

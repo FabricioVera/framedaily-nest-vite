@@ -1,7 +1,8 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Arial, Helvetica, sans-serif !important;
   line-height: 1.5;
   font-weight: 400;
 
@@ -19,26 +20,16 @@
 /* Sidebar theme */
 @layer base {
   :root {
-    --sidebar: #131f45 !important;
-    --sidebar-foreground: #c8c8c8 !important;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: #21213b !important;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar: #21213B !important;
+    --sidebar-foreground: #ffffff !important;
+    --sidebar-primary: #d9ac79;
+    --sidebar-primary-foreground: #d9ac79;
+    --sidebar-accent: #f0f0f0 !important;
+    --sidebar-accent-foreground: #21213B !important;
+    --sidebar-border: #d9ac79 !important;
+    --sidebar-ring: #d9ac79 !important;
   }
- 
-  .dark {
-    --sidebar: #131f45 !important;
-    --sidebar-foreground: #c8c8c8 !important;
-    --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 240 5.9% 10%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: #21213b !important;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+
 }
 
 
@@ -57,15 +48,6 @@ html, body, div#root {
   background: transparent;
 }
 
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
 body {
   margin: 0;
