@@ -5,7 +5,6 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
-  SidebarMenuItem,
   SidebarMenuButton,
   SidebarTrigger,
   useSidebar,
@@ -19,23 +18,24 @@ import {
   motion,
   type Variants,
 } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const sidebarData = {
   header: "FrameDaily",
   navMain: [
     {
       label: "Inicio",
-      href: "#",
+      href: "/",
       icon: HomeIcon,
     },
     {
       label: "Warframes",
-      href: "#",
+      href: "/guess-the-warframe",
       icon: ShovelIcon,
     },
     {
       label: "Habilidades",
-      href: "#",
+      href: "/guess-abilities-by-picture/",
       icon: SparklesIcon,
     },
   ],
@@ -51,7 +51,7 @@ const listVariants: Variants = {
     opacity: 1,
     height: "auto",
     transition: {
-      staggerChildren: 0.5,
+      staggerChildren: 0.25,
       when: "beforeChildren",
     },
   },
@@ -63,23 +63,43 @@ const itemVariants: Variants = {
     x: 0,
     y: 0,
     transition: {
-      duration: 1,
+      duration: 0.5,
       ease: [0.25, 0.1, 0.25, 1],
     },
   },
+};
+const headerVariants: Variants = {
+  closed: {
+    opacity: 0,
+    transition: { duration: 0.2 },
+  },
+  open: {
+    opacity: 1,
+    transition: { duration: 0.2, delay: 0.5 },
+  }, // Un pequeño delay para que aparezca después de iniciar la barra
 };
 
 function AppSidebar() {
   const { open } = useSidebar();
   return (
-    <Sidebar className="z-20">
-      <SidebarContent>
+    <Sidebar
+      className={`z-20 h-fit w-fit ${
+        open ? "sidebar-animation" : ""
+      } `}
+      variant="floating"
+    >
+      <motion.div
+        initial="closed"
+        animate={open ? "open" : "closed"}
+        variants={headerVariants}
+      >
+        <SidebarGroupLabel className="text-lg font-bold tracking-wide mx-2 px-3 pt-3 ">
+          {sidebarData.header}
+          <SidebarTrigger className="ml-2" />
+        </SidebarGroupLabel>
+      </motion.div>
+      <SidebarContent className="overflow-hidden">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-lg font-bold tracking-wide mb-3 px-3 pt-3">
-            {sidebarData.header}
-            <SidebarTrigger className="mx-2" />
-          </SidebarGroupLabel>
-
           <SidebarGroupContent>
             <SidebarMenu>
               <motion.ul
@@ -95,16 +115,19 @@ function AppSidebar() {
                         itemVariants as any
                       }
                     >
-                      <SidebarMenuButton asChild>
-                        <a
-                          href={item.href}
-                          className="gap-3 px-4 transition-all duration-100"
+                      <SidebarMenuButton
+                        size="lg"
+                        asChild
+                      >
+                        <Link
+                          to={item.href}
+                          className="gap-3 px-4"
                         >
                           <item.icon />
-                          <span className="text-sm font-medium">
+                          <span>
                             {item.label}
                           </span>
-                        </a>
+                        </Link>
                       </SidebarMenuButton>
                     </motion.li>
                   )

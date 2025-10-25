@@ -20,17 +20,62 @@
 @layer base {
   :root {
     --sidebar: #21213B !important;
+    --sidebar-50: #21213b83 !important;
     --sidebar-foreground: #ffffff !important;
     --sidebar-primary: #d9ac79;
     --sidebar-primary-foreground: #d9ac79;
-    --sidebar-accent: #f0f0f0 !important;
-    --sidebar-accent-foreground: #21213B !important;
-    --sidebar-border: #d9ac79 !important;
+    --sidebar-accent: rgba(40, 100, 200, 0.3) !important;
+    --sidebar-accent-foreground: #E0FFFF !important;
+    --sidebar-border: #145e80 !important;
     --sidebar-ring: #d9ac79 !important;
   }
 
 }
 
+.bg-sidebar {
+  border-radius: 8px;
+  border: 1px solid rgba(119, 211, 255, 0.1);
+  background: radial-gradient(rgba(18, 52, 86, 0.2), rgba(18, 52, 86, 0.35)) !important;
+  box-shadow: 
+    0 0 10px rgba(119, 211, 255, 0.4),
+    0 0 20px rgba(119, 211, 255, 0.2),
+    inset 0 0 10px rgba(119, 211, 255, 0.3);
+  text-shadow: 0 0 5px rgba(119, 211, 255, 0.5);
+  animation: hologram-pulse 4s infinite alternate ease-in-out;
+}
+
+
+.sidebar-animation {
+  animation: sidebar-animation 0.5s ease-out;
+  transform-origin: top;
+}
+
+@keyframes sidebar-animation {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes hologram-pulse {
+  0% {
+    box-shadow: 
+      0 0 10px rgba(119, 211, 255, 0.4), 
+      0 0 20px rgba(119, 211, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 15px rgba(119, 211, 255, 0.6), /* Más brillo en el medio */
+      0 0 25px rgba(119, 211, 255, 0.3);
+  }
+  100% {
+    box-shadow: 
+      0 0 10px rgba(119, 211, 255, 0.4), 
+      0 0 20px rgba(119, 211, 255, 0.2);
+  }
+}
 
 html, body, div#root {
   margin: 0;
@@ -82,3 +127,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
