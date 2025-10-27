@@ -9,46 +9,65 @@ interface GuessInputProps {
     guess: string
   ) => void | Promise<void>;
   disabled?: boolean;
+  guessedWarframesNames: string[];
 }
 
 export function GuessInput({
   onGuess,
   disabled,
+  guessedWarframesNames,
 }: GuessInputProps) {
   const {
+    inputRef,
     inputValue,
     isSubmitting,
     suggestions,
     showSuggestions,
     selectedSuggestion,
+    errorMessage,
     handleChange,
     handleClean,
     handleSubmit,
     handleSuggestionClick,
     handleKeyDown,
-  } = useGuessInput(onGuess, disabled);
+  } = useGuessInput(
+    onGuess,
+    guessedWarframesNames,
+    disabled
+  );
+
+  const isDisabled = disabled || isSubmitting;
 
   return (
     <div className="w-full max-w-md relative">
+      {errorMessage && (
+        <p className="text-red-400 text-sm mb-2 p-2">
+          {errorMessage}
+        </p>
+      )}
       <form
         onSubmit={handleSubmit}
         className="flex flex-row items-center gap-3 bg-gray-900/40 backdrop-blur-md p-5 rounded-2xl shadow-md border border-gray-700"
       >
         <Input
+          ref={inputRef}
           type="text"
           value={inputValue}
           autoComplete="off"
-          disabled={disabled || isSubmitting}
+          disabled={isDisabled}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Escribe el nombre del Warframe..."
         />
-        {inputValue !== "" ? (
-          <X onClick={handleClean} />
-        ) : null}
+        {inputValue !== "" && (
+          <X
+            onClick={handleClean}
+            aria-label="Clear input"
+          />
+        )}
         <Button
           type="submit"
-          disabled={disabled || isSubmitting}
+          disabled={isDisabled || !inputValue}
         >
           {isSubmitting
             ? "Comprobando..."

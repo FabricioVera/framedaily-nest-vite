@@ -77,6 +77,9 @@ function GuessTheWarframe() {
       <GuessInput
         onGuess={handleGuess}
         disabled={isCorrect}
+        guessedWarframesNames={guessedWarframes.map(
+          (wf) => wf.name
+        )}
       />
 
       <WarframeTable

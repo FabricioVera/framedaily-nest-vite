@@ -1,3 +1,8 @@
+export interface SuggestionWarframeDto {
+  name: string;
+  wikiaThumbnail?: string;
+}
+
 export interface WarframeDto {
   id: number;
   uniqueName: string | null;

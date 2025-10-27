@@ -1,9 +1,9 @@
 import { SuggestionItem } from "./SuggestionItem";
-import type { Suggestion } from "./useGuessInput";
+import type { SuggestionWarframeDto } from "shared/src/dtos/warframe.dto";
 
 interface Props {
   show: boolean;
-  suggestions: Suggestion[];
+  suggestions: SuggestionWarframeDto[];
   selectedSuggestion: number;
   onSelect: (name: string) => void;
 }
@@ -21,16 +21,10 @@ export function SuggestionList({
     <ul className="absolute left-0 right-0 mt-2 bg-gray-900/95 border border-gray-700 rounded-xl shadow-lg backdrop-blur-md z-50 max-h-64 overflow-y-auto">
       {suggestions.map((s, i) => (
         <SuggestionItem
-          key={i}
+          key={s.name}
           suggestion={s}
           onSelect={onSelect}
-          className={`
-            ${
-              selectedSuggestion === i
-                ? "bg-teal-700"
-                : ""
-            }
-              `}
+          isSelected={selectedSuggestion === i}
         />
       ))}
     </ul>
