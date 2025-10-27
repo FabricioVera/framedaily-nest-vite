@@ -13,6 +13,7 @@ import {
   HomeIcon,
   ShovelIcon,
   SparklesIcon,
+  X,
 } from "lucide-react";
 import {
   motion,
@@ -93,9 +94,12 @@ function AppSidebar() {
         animate={open ? "open" : "closed"}
         variants={headerVariants}
       >
-        <SidebarGroupLabel className="text-lg font-bold tracking-wide mx-2 px-3 pt-3 ">
+        <SidebarGroupLabel className="text-lg font-bold tracking-wide mx-2 pt-3 ">
           {sidebarData.header}
-          <SidebarTrigger className="ml-2" />
+          <SidebarTrigger
+            className="ml-4 opacity-50 hover:bg-sidebar-accent hover:text-white"
+            icon={X}
+          />
         </SidebarGroupLabel>
       </motion.div>
       <SidebarContent className="overflow-hidden">

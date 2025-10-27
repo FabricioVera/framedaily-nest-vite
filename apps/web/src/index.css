@@ -67,7 +67,7 @@
   }
   50% {
     box-shadow: 
-      0 0 15px rgba(119, 211, 255, 0.6), /* Más brillo en el medio */
+      0 0 15px rgba(119, 211, 255, 0.6),
       0 0 25px rgba(119, 211, 255, 0.3);
   }
   100% {
@@ -92,28 +92,6 @@ html, body, div#root {
   background: transparent;
 }
 
-
-button {
-  color: var(--sidebar-foreground);
-  border-radius: 8px;
-  border: 1px solid var(--sidebar-accent);
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 900;
-  font-family: inherit;
-  background-color: var(--sidebar);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-button:hover {
-  background-color: var(--sidebar-accent);
-  color: var(--sidebar-accent-foreground);
-  border-color: var(--sidebar-accent-foreground);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 @media (prefers-color-scheme: light) {
   :root {

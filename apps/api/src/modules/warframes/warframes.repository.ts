@@ -34,4 +34,18 @@ export class WarframesRepository {
     }
     return warframe;
   }
+
+  async getAllRowsByColumns(
+    columns: (keyof typeof warframes)[],
+  ): Promise<Partial<WarframeDto>[]> {
+    // Filtramos solo las columnas válidas que existen en el schema
+    const selectedColumnsEntries = columns
+      .filter((col) => warframes[col as keyof typeof warframes] !== undefined)
+      .map((col) => [col, warframes[col as keyof typeof warframes]]);
+
+    const selectedColumns = Object.fromEntries(selectedColumnsEntries);
+
+    const result = await db.select(selectedColumns).from(warframes);
+    return result;
+  }
 }

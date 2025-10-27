@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../App.css";
-import { GuessInput } from "../components/GuessInput";
+import { GuessInput } from "../components/GuessInput/GuessInput";
 import { WarframeTable } from "../components/WarframeTable/WarframeTable";
 import type { WarframeDto } from "shared/src/dtos/warframe.dto";
 import { CorrectWarframeCard } from "../components/CorrectWarframeCard";

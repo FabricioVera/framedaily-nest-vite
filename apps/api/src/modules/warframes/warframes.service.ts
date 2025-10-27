@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { WarframesRepository } from './warframes.repository';
 import { UtilsService } from '../../utils/utils.service';
+import { WarframeDto } from 'shared/src/dtos/warframe.dto';
 
 @Injectable()
 export class WarframesService {
@@ -56,5 +57,12 @@ export class WarframesService {
     const correct = fieldMatches.name;
 
     return { ...guessedWarframe, correct, fieldMatches };
+  }
+
+  async getWarframeSuggestions(): Promise<Partial<WarframeDto>[]> {
+    return await this.warframesRepo.getAllRowsByColumns([
+      'name',
+      'wikiaThumbnail',
+    ]);
   }
 }

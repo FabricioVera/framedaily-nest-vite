@@ -19,4 +19,9 @@ export class WarframesController {
   async checkAnswer(@Body() body: { id: number; guess: string }) {
     return this.service.checkAnswer(body.id, body.guess);
   }
+
+  @Get('suggestions')
+  async getWarframeSuggestions() {
+    return this.service.getWarframeSuggestions();
+  }
 }
