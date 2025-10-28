@@ -62,7 +62,7 @@ export class WarframesService {
   async getWarframeSuggestions(): Promise<Partial<WarframeDto>[]> {
     return await this.warframesRepo.getAllRowsByColumns([
       'name',
-      'wikiaThumbnail',
+      'thumbnailUrl',
     ]);
   }
 }

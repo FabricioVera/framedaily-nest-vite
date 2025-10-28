@@ -11,6 +11,7 @@ async function seedWarframes() {
 
   for (const wf of data) {
     // Insertamos el Warframe principal
+    if (wf.type !== 'Warframe' || wf.name === 'Helminth') return;
     const [inserted] = await db
       .insert(warframes)
       .values({
@@ -32,7 +33,7 @@ async function seedWarframes() {
         sex: wf.sex,
         imageName: wf.imageName,
         wikiUrl: wf.wikiaUrl,
-        wikiaThumbnail: wf.wikiaThumbnail,
+        thumbnailUrl: wf.wikiaThumbnail,
         exalted: wf.exalted || [false],
       })
       .onConflictDoNothing()
@@ -48,7 +49,7 @@ async function seedWarframes() {
         uniqueName: ab.uniqueName,
         name: ab.name,
         description: ab.description,
-        imageName: ab.imageName,
+        thumbnailUrl: '@/public/img/' + ab.imageName,
       }));
 
       await db.insert(abilities).values(abilityValues).onConflictDoNothing();

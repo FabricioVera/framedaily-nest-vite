@@ -4,32 +4,27 @@ import {
   useRef,
   useMemo,
 } from "react";
-import { useSuggestions } from "@/features/warframes/hooks/useSuggestions";
-import type { SuggestionWarframeDto } from "shared/src/dtos/warframe.dto";
+import type { SuggestionItemDto } from "shared/src/index";
 import { normalizeString } from "../../utils";
 
-export function useGuessInput(
+export function useGuessInput<
+  T extends SuggestionItemDto
+>(
   onGuess: (
     guess: string
   ) => void | Promise<void>,
-  guessedWarframesNames: string[],
+  allElements: T[],
+  guessedNames: string[],
   disabled?: boolean
 ) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const {
-    all: allWarframes,
-    loading,
-    error,
-  } = useSuggestions<SuggestionWarframeDto>(
-    "warframes"
-  );
 
   const [inputValue, setInputValue] =
     useState("");
   const [isSubmitting, setIsSubmitting] =
     useState(false);
   const [suggestions, setSuggestions] = useState<
-    SuggestionWarframeDto[]
+    T[]
   >([]);
   const [showSuggestions, setShowSuggestions] =
     useState(false);
@@ -94,16 +89,16 @@ export function useGuessInput(
     const normalizedValue =
       normalizeString(value);
     const normalizedGuessedNames =
-      guessedWarframesNames.map(normalizeString);
+      guessedNames.map(normalizeString);
 
-    const filtered = allWarframes
+    const filtered = allElements
       .filter(
-        (wf) =>
-          normalizeString(wf.name).includes(
+        (item) =>
+          normalizeString(item.name).includes(
             normalizedValue
           ) &&
           !normalizedGuessedNames.includes(
-            normalizeString(wf.name)
+            normalizeString(item.name)
           )
       )
       .slice(0, 10);
@@ -143,19 +138,17 @@ export function useGuessInput(
       const normalizedValue =
         normalizeString(value);
       const normalizedGuessedNames =
-        guessedWarframesNames.map(
-          normalizeString
-        );
+        guessedNames.map(normalizeString);
 
-      // Validar si existe ese warframe
-      const match = allWarframes.find(
-        (wf) =>
-          normalizeString(wf.name) ===
+      // Validar si existe
+      const match = allElements.find(
+        (item) =>
+          normalizeString(item.name) ===
           normalizedValue
       );
       if (!match) {
         setErrorMessage(
-          "No es un Warframe válido."
+          `${value} no es un elemento válido.`
         );
         return;
       }
@@ -191,20 +184,11 @@ export function useGuessInput(
       onGuess,
       disabled,
       isSubmitting,
-      allWarframes,
-      guessedWarframesNames,
+      allElements,
+      guessedNames,
       resetSuggestions,
     ]
   );
-
-  const apiError =
-    error || loading
-      ? error
-        ? "Error de API"
-        : "Cargando datos..."
-      : null;
-  const currentErrorMessage =
-    errorMessage || apiError;
 
   // se usa useMemo para utilizar el hook solo cuando una dependencia cambia
   return useMemo(
@@ -215,7 +199,7 @@ export function useGuessInput(
       suggestions,
       showSuggestions,
       selectedSuggestion,
-      errorMessage: currentErrorMessage,
+      errorMessage,
       handleChange,
       handleClean,
       handleSubmit,
@@ -229,7 +213,7 @@ export function useGuessInput(
       suggestions,
       showSuggestions,
       selectedSuggestion,
-      currentErrorMessage,
+      errorMessage,
       handleChange,
       handleClean,
       handleSubmit,

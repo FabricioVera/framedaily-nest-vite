@@ -1,7 +1,7 @@
-import type { SuggestionWarframeDto } from "shared/src/dtos/warframe.dto";
+import type { SuggestionItemDto } from "shared/src/index";
 
 interface Props {
-  suggestion: SuggestionWarframeDto;
+  suggestion: SuggestionItemDto;
   onSelect: (name: string) => void;
   isSelected: boolean;
 }
@@ -20,9 +20,9 @@ export function SuggestionItem({
       className={`flex items-center gap-3 px-4 py-2 cursor-pointer text-gray-200 hover:bg-gray-700/70 rounded-lg transition-colors ${selectedClass}`}
       onClick={() => onSelect(suggestion.name)}
     >
-      {suggestion.wikiaThumbnail && (
+      {suggestion.thumbnailUrl && (
         <img
-          src={suggestion.wikiaThumbnail}
+          src={suggestion.thumbnailUrl}
           alt={suggestion.name}
           className="w-8 h-8 object-contain rounded-md bg-gray-800 p-1"
           loading="lazy"

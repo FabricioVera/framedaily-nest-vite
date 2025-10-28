@@ -3,20 +3,29 @@ import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
 import { useGuessInput } from "./useGuessInput";
 import { SuggestionList } from "./SuggestionList";
+import type { SuggestionItemDto } from "shared/src";
 
-interface GuessInputProps {
+interface GuessInputProps<
+  T extends SuggestionItemDto
+> {
   onGuess: (
     guess: string
   ) => void | Promise<void>;
   disabled?: boolean;
-  guessedWarframesNames: string[];
+  allElements: T[];
+  guessedNames: string[];
+  placeholder: string;
 }
 
-export function GuessInput({
+export function GuessInput<
+  T extends SuggestionItemDto
+>({
   onGuess,
   disabled,
-  guessedWarframesNames,
-}: GuessInputProps) {
+  allElements,
+  guessedNames,
+  placeholder,
+}: GuessInputProps<T>) {
   const {
     inputRef,
     inputValue,
@@ -32,7 +41,8 @@ export function GuessInput({
     handleKeyDown,
   } = useGuessInput(
     onGuess,
-    guessedWarframesNames,
+    allElements,
+    guessedNames,
     disabled
   );
 
@@ -57,7 +67,7 @@ export function GuessInput({
           disabled={isDisabled}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="Escribe el nombre del Warframe..."
+          placeholder={placeholder}
         />
         {inputValue !== "" && (
           <X

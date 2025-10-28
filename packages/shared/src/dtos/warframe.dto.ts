@@ -1,8 +1,3 @@
-export interface SuggestionWarframeDto {
-  name: string;
-  wikiaThumbnail?: string;
-}
-
 export interface WarframeDto {
   id: number;
   uniqueName: string | null;
@@ -20,7 +15,7 @@ export interface WarframeDto {
   polarities: string[] | null;
   sex: string | null;
   imageName: string | null;
-  wikiaThumbnail: string | null;
+  thumbnailUrl: string | null;
   wikiUrl: string | null;
   exalted: string[] | null;
   createdAt: Date | null;

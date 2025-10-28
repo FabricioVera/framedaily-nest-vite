@@ -26,7 +26,7 @@ export const warframes = pgTable('warframes', {
   polarities: varchar('polarities', { length: 100 }).array(),
   sex: varchar('sex', { length: 10 }),
   imageName: varchar('image_name', { length: 500 }),
-  wikiaThumbnail: varchar('wikia_thumbnail', { length: 500 }),
+  thumbnailUrl: varchar('thumbnail_url', { length: 500 }),
   wikiUrl: varchar('wiki_url', { length: 500 }),
   exalted: text('exalted').array(),
   createdAt: timestamp('created_at').defaultNow(),

@@ -1,9 +1,9 @@
 import { SuggestionItem } from "./SuggestionItem";
-import type { SuggestionWarframeDto } from "shared/src/dtos/warframe.dto";
+import type { SuggestionItemDto } from "shared/src/index";
 
 interface Props {
   show: boolean;
-  suggestions: SuggestionWarframeDto[];
+  suggestions: SuggestionItemDto[];
   selectedSuggestion: number;
   onSelect: (name: string) => void;
 }

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import type { SuggestionItemDto } from "shared/src";
 
-export function useSuggestions<T>(path: string) {
+export function useSuggestions<
+  T extends SuggestionItemDto
+>(path: string) {
   const [all, setAll] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<

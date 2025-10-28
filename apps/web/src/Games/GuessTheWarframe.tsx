@@ -5,8 +5,15 @@ import { WarframeTable } from "../components/WarframeTable/WarframeTable";
 import type { WarframeDto } from "shared/src/dtos/warframe.dto";
 import { CorrectWarframeCard } from "../components/CorrectWarframeCard";
 import { useDailyObject } from "../features/warframes/hooks/useDailyObject";
+import { useSuggestions } from "../features/warframes/hooks/useSuggestions";
+import type { SuggestionItemDto } from "shared/src";
 
 function GuessTheWarframe() {
+  const {
+    all: allWarframes,
+    loading: loadingSuggestions,
+    error: errorSuggestions,
+  } = useSuggestions("warframes");
   const {
     dailyObject: dailyWarframe,
     loading,
@@ -74,12 +81,14 @@ function GuessTheWarframe() {
         />
       )}
 
-      <GuessInput
+      <GuessInput<SuggestionItemDto>
         onGuess={handleGuess}
         disabled={isCorrect}
-        guessedWarframesNames={guessedWarframes.map(
+        allElements={allWarframes}
+        guessedNames={guessedWarframes.map(
           (wf) => wf.name
         )}
+        placeholder="Escribe el nombre del Warframe de hoy"
       />
 
       <WarframeTable
