@@ -9,37 +9,32 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar";
 import { ArrowUp, ArrowDown } from "lucide-react";
-import type { Column } from "./WarframeHeaderRow";
 import { Skeleton } from "../ui/skeleton";
+import {
+  WARFRAME_COMPARISON_CONFIG,
+  type ComparisonResult,
+} from "shared/src";
 
 export interface WarframeWithMatch
   extends WarframeDto {
   correct?: boolean;
-  fieldMatches?: {
-    name?: boolean;
-    type?: boolean;
-    aura?: boolean;
-    releaseYear?: string;
-    isPrime?: boolean;
-  };
+  fieldMatches?: Record<string, ComparisonResult>;
 }
 
 interface WarframeGuessedRowProps {
-  guessedWarframes: WarframeWithMatch[];
-  columns: Column[];
+  warframe: WarframeWithMatch;
 }
 
 export function WarframeGuessedRow({
-  guessedWarframes,
-  columns,
+  warframe,
 }: WarframeGuessedRowProps) {
   const getCellClass = (
-    match?: boolean | string
+    match?: ComparisonResult
   ) => {
-    if (match === true || match === "equal")
+    if (match === "exact")
       return "bg-teal-700 text-white";
     if (
-      match === false ||
+      match === "incorrect" ||
       match === "lower" ||
       match === "higher"
     )
@@ -47,7 +42,9 @@ export function WarframeGuessedRow({
     return "";
   };
 
-  const getYearIcon = (comparison?: string) => {
+  const getYearIcon = (
+    comparison?: ComparisonResult
+  ) => {
     if (comparison === "lower")
       return (
         <ArrowDown
@@ -65,56 +62,60 @@ export function WarframeGuessedRow({
     return null;
   };
   return (
-    <>
-      {guessedWarframes.map((w) => (
-        <TableRow
-          key={w.id}
-          className="border-t border-gray-700 hover:bg-gray-800 transition"
-        >
-          <TableCell className="px-4 py-2">
-            <Avatar className="w-16 h-16 mx-auto">
-              <AvatarImage
-                src={w.thumbnailUrl || undefined}
-                alt={w.name}
-              />
-              <AvatarFallback className="text-black bg-transparent">
-                {
-                  <Skeleton className="rounded-full w-full h-full" />
-                }
-              </AvatarFallback>
-            </Avatar>
-          </TableCell>
-          {columns
-            .filter(
-              (col) => col.key !== "thumbnailUrl"
-            )
-            .map((col) => {
-              const match = (
-                w.fieldMatches as any
-              )?.[col.key];
-              const value = (w as any)[col.key];
+    <TableRow className="border-t border-gray-700 hover:bg-gray-800 transition">
+      {WARFRAME_COMPARISON_CONFIG.map((col) => {
+        const value = (warframe as any)[col.key];
+        const match =
+          warframe.fieldMatches?.[
+            col.key as string
+          ];
 
-              const displayValue =
-                col.key === "isPrime"
-                  ? value
-                    ? "Sí"
-                    : "No"
-                  : value ?? "-";
+        const content = (() => {
+          switch (col.displayType) {
+            case "image":
               return (
-                <TableCell
-                  key={col.key}
-                  className={`px-4 py-2 text-center ${getCellClass(
-                    match
-                  )}`}
-                >
-                  {displayValue}
-                  {col.key === "releaseYear" &&
-                    getYearIcon(match)}
-                </TableCell>
+                <Avatar className="w-16 h-16 mx-auto">
+                  <AvatarImage
+                    src={value || undefined}
+                    alt={warframe.name}
+                  />
+                  <AvatarFallback className="text-black bg-transparent">
+                    {
+                      <Skeleton className="rounded-full w-full h-full" />
+                    }
+                  </AvatarFallback>
+                </Avatar>
               );
-            })}
-        </TableRow>
-      ))}
-    </>
+            case "boolean":
+              const displayBool =
+                value === true ? "Sí" : "No";
+              return displayBool;
+            case "year":
+              return (
+                <>
+                  {value ?? "-"}
+                  {getYearIcon(match)}
+                </>
+              );
+            case "text":
+            default:
+              return value ?? "-";
+          }
+        })();
+
+        const cellClass = col.isComparable
+          ? getCellClass(match)
+          : "";
+
+        return (
+          <TableCell
+            key={col.key}
+            className={`px-4 py-2 text-center ${cellClass}`}
+          >
+            {content}
+          </TableCell>
+        );
+      })}
+    </TableRow>
   );
 }

@@ -7,6 +7,7 @@ import { CorrectWarframeCard } from "../components/CorrectWarframeCard";
 import { useDailyObject } from "../features/warframes/hooks/useDailyObject";
 import { useSuggestions } from "../features/warframes/hooks/useSuggestions";
 import type { SuggestionItemDto } from "shared/src";
+import type { WarframeWithMatch } from "../components/WarframeTable/WarframeGuessedRow";
 
 function GuessTheWarframe() {
   const {
@@ -20,9 +21,7 @@ function GuessTheWarframe() {
     error,
   } = useDailyObject<WarframeDto>("warframes");
   const [guessedWarframes, setGuessedWarframes] =
-    useState<
-      (WarframeDto & { correct?: boolean })[]
-    >([]);
+    useState<WarframeWithMatch[]>([]);
   const [isCorrect, setIsCorrect] = useState<
     boolean | undefined
   >(false);
@@ -46,9 +45,9 @@ function GuessTheWarframe() {
       }
     );
 
-    const data: WarframeDto & {
-      correct?: boolean;
-    } = await response.json();
+    const data: WarframeWithMatch =
+      await response.json();
+
     setGuessedWarframes((prev) => [
       data,
       ...prev,

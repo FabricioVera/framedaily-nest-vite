@@ -2,29 +2,18 @@ import {
   Table,
   TableHeader,
   TableBody,
+  TableHead,
+  TableRow,
 } from "@/components/ui/table";
-import {
-  WarframeHeaderRow,
-  type Column,
-} from "./WarframeHeaderRow";
 import {
   WarframeGuessedRow,
   type WarframeWithMatch,
 } from "./WarframeGuessedRow";
+import { WARFRAME_COMPARISON_CONFIG } from "shared/src";
 
 interface WarframeTableProps {
   guessedWarframes: WarframeWithMatch[];
 }
-
-const warframeColumns: Column[] = [
-  { key: "thumbnailUrl", label: "Imagen" },
-  { key: "name", label: "Nombre" },
-  { key: "sex", label: "Genero" },
-  { key: "isPrime", label: "Prime" },
-  { key: "type", label: "Tipo" },
-  { key: "aura", label: "Aura" },
-  { key: "releaseYear", label: "Año" },
-];
 
 export function WarframeTable({
   guessedWarframes,
@@ -41,16 +30,27 @@ export function WarframeTable({
     <div className="overflow-x-auto w-full max-w-4xl mt-5 rounded-md border-gray-700 border">
       <Table className="min-w-full">
         <TableHeader className="bg-accent">
-          <WarframeHeaderRow
-            columns={warframeColumns}
-          />
+          <TableRow>
+            {WARFRAME_COMPARISON_CONFIG.map(
+              ({ key, label }) => (
+                <TableHead
+                  key={key}
+                  className="text-center"
+                >
+                  {label}
+                </TableHead>
+              )
+            )}
+          </TableRow>
         </TableHeader>
 
         <TableBody>
-          <WarframeGuessedRow
-            guessedWarframes={guessedWarframes}
-            columns={warframeColumns}
-          ></WarframeGuessedRow>
+          {guessedWarframes.map((warframe) => (
+            <WarframeGuessedRow
+              key={warframe.id}
+              warframe={warframe}
+            ></WarframeGuessedRow>
+          ))}
         </TableBody>
       </Table>
     </div>

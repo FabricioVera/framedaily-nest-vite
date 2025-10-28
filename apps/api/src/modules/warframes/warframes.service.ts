@@ -2,6 +2,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { WarframesRepository } from './warframes.repository';
 import { UtilsService } from '../../utils/utils.service';
 import { WarframeDto } from 'shared/src/dtos/warframe.dto';
+import {
+  WARFRAME_COMPARISON_CONFIG,
+  ComparisonResult,
+} from 'shared/src/config/warframeComparison.config';
+import { compareWarframes } from './checkAnswer/checkAnswer.utils';
 
 @Injectable()
 export class WarframesService {
@@ -10,13 +15,10 @@ export class WarframesService {
     private utilities: UtilsService,
   ) {}
 
-  getYearComparison(
-    guessYear: number,
-    actualYear: number,
-  ): 'lower' | 'equal' | 'higher' {
+  getYearComparison(guessYear: number, actualYear: number): ComparisonResult {
     if (guessYear < actualYear) return 'higher';
     if (guessYear > actualYear) return 'lower';
-    return 'equal';
+    return 'exact';
   }
 
   async getDailyWarframe() {
@@ -39,24 +41,13 @@ export class WarframesService {
     const guessedWarframe = await this.warframesRepo.findByName(guess);
     const dailyWarframe = await this.warframesRepo.findById(id);
 
-    const compareField = (field: keyof typeof guessedWarframe) =>
-      guessedWarframe[field]?.toString().trim().toLowerCase() ===
-      dailyWarframe[field]?.toString().trim().toLowerCase();
+    const fieldMatches = compareWarframes(guessedWarframe, dailyWarframe);
 
-    const fieldMatches = {
-      name: compareField('name'),
-      type: compareField('type'),
-      aura: compareField('aura'),
-      releaseYear: this.getYearComparison(
-        guessedWarframe.releaseYear!,
-        dailyWarframe.releaseYear!,
-      ),
-      isPrime: guessedWarframe.isPrime === dailyWarframe.isPrime,
+    return {
+      ...guessedWarframe,
+      correct: fieldMatches.name === 'exact',
+      fieldMatches,
     };
-
-    const correct = fieldMatches.name;
-
-    return { ...guessedWarframe, correct, fieldMatches };
   }
 
   async getWarframeSuggestions(): Promise<Partial<WarframeDto>[]> {
