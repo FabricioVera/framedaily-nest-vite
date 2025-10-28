@@ -40,7 +40,7 @@ export function WarframeTable({
   return (
     <div className="overflow-x-auto w-full max-w-4xl mt-5 rounded-md border-gray-700 border">
       <Table className="min-w-full">
-        <TableHeader>
+        <TableHeader className="bg-accent">
           <WarframeHeaderRow
             columns={warframeColumns}
           />

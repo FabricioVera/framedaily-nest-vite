@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { useGuessInput } from "./useGuessInput";
 import { SuggestionList } from "./SuggestionList";
 import type { SuggestionItemDto } from "shared/src";
+import { HeroInput } from "./InputHero/HeroInput";
 
 interface GuessInputProps<
   T extends SuggestionItemDto
@@ -54,6 +55,17 @@ export function GuessInput<
         <p className="text-red-400 text-sm mb-2 p-2">
           {errorMessage}
         </p>
+      )}
+      {suggestions[selectedSuggestion]?.name && (
+        <HeroInput
+          itemName={
+            suggestions[selectedSuggestion].name
+          }
+          thumbnailUrl={
+            suggestions[selectedSuggestion]
+              .thumbnailUrl
+          }
+        ></HeroInput>
       )}
       <form
         onSubmit={handleSubmit}

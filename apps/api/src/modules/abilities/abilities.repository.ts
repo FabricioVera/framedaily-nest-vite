@@ -34,4 +34,18 @@ export class AbilitiesRepository {
     }
     return ability;
   }
+
+  async getAllRowsByColumns(
+    columns: (keyof typeof abilities)[],
+  ): Promise<Partial<AbilitiesDto>[]> {
+    // Filtramos solo las columnas válidas que existen en el schema
+    const selectedColumnsEntries = columns
+      .filter((col) => abilities[col as keyof typeof abilities] !== undefined)
+      .map((col) => [col, abilities[col as keyof typeof abilities]]);
+
+    const selectedColumns = Object.fromEntries(selectedColumnsEntries);
+
+    const result = await db.select(selectedColumns).from(abilities);
+    return result;
+  }
 }

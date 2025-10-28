@@ -14,4 +14,9 @@ export class AbilitiesController {
   async getRandomAbility() {
     return this.service.getRandomAbility();
   }
+
+  @Get('suggestions')
+  async getAbilitiesSuggestions() {
+    return this.service.getAbilitiesSuggestions();
+  }
 }

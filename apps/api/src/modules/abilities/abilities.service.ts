@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AbilitiesRepository } from './abilities.repository';
 import { UtilsService } from '../../utils/utils.service';
+import { AbilitiesDto } from 'shared/src/dtos/abilities.dto';
 
 @Injectable()
 export class AbilitiesService {
@@ -23,5 +24,12 @@ export class AbilitiesService {
     const length = await this.abilitiesRepo.countAll();
     const randomId = Math.floor(Math.random() * length) + 1;
     return await this.abilitiesRepo.findById(randomId);
+  }
+
+  async getAbilitiesSuggestions(): Promise<Partial<AbilitiesDto>[]> {
+    return await this.abilitiesRepo.getAllRowsByColumns([
+      'name',
+      'thumbnailUrl',
+    ]);
   }
 }

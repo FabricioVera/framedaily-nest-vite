@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/avatar";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import type { Column } from "./WarframeHeaderRow";
+import { Skeleton } from "../ui/skeleton";
 
 export interface WarframeWithMatch
   extends WarframeDto {
@@ -76,8 +77,10 @@ export function WarframeGuessedRow({
                 src={w.thumbnailUrl || undefined}
                 alt={w.name}
               />
-              <AvatarFallback className="text-black">
-                {"No image"}
+              <AvatarFallback className="text-black bg-transparent">
+                {
+                  <Skeleton className="rounded-full w-full h-full" />
+                }
               </AvatarFallback>
             </Avatar>
           </TableCell>
