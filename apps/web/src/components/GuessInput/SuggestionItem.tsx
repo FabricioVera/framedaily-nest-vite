@@ -25,7 +25,6 @@ export function SuggestionItem({
           src={suggestion.thumbnailUrl}
           alt={suggestion.name}
           className="w-8 h-8 object-contain rounded-md bg-gray-800 p-1"
-          loading="lazy"
         />
       )}
       <span>{suggestion.name}</span>

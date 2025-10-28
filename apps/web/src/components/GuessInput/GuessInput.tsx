@@ -5,6 +5,7 @@ import { useGuessInput } from "./useGuessInput";
 import { SuggestionList } from "./SuggestionList";
 import type { SuggestionItemDto } from "shared/src";
 import { HeroInput } from "./InputHero/HeroInput";
+import { AnimatePresence } from "framer-motion";
 
 interface GuessInputProps<
   T extends SuggestionItemDto
@@ -34,6 +35,7 @@ export function GuessInput<
     suggestions,
     showSuggestions,
     selectedSuggestion,
+    selectDirection,
     errorMessage,
     handleChange,
     handleClean,
@@ -56,17 +58,26 @@ export function GuessInput<
           {errorMessage}
         </p>
       )}
-      {suggestions[selectedSuggestion]?.name && (
-        <HeroInput
-          itemName={
-            suggestions[selectedSuggestion].name
-          }
-          thumbnailUrl={
-            suggestions[selectedSuggestion]
-              .thumbnailUrl
-          }
-        ></HeroInput>
-      )}
+
+      <AnimatePresence
+        mode="wait"
+        custom={selectDirection}
+      >
+        {suggestions[selectedSuggestion]
+          ?.name && (
+          <HeroInput
+            key={selectedSuggestion}
+            itemName={
+              suggestions[selectedSuggestion].name
+            }
+            thumbnailUrl={
+              suggestions[selectedSuggestion]
+                .thumbnailUrl
+            }
+            selectDirection={selectDirection}
+          ></HeroInput>
+        )}
+      </AnimatePresence>
       <form
         onSubmit={handleSubmit}
         className="flex flex-row items-center gap-3 bg-gray-900/40 backdrop-blur-md p-5 rounded-2xl shadow-md border border-gray-700"

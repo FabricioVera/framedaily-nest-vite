@@ -34,6 +34,8 @@ export function useGuessInput<
     selectedSuggestion,
     setSelectedSuggestion,
   ] = useState(-1);
+  const [selectDirection, setSelectDirection] =
+    useState(-1);
 
   // Limpiar sugerencias
   const resetSuggestions = useCallback(() => {
@@ -55,6 +57,7 @@ export function useGuessInput<
           ? suggestions.length - 1
           : prev - 1
       );
+      setSelectDirection(-1);
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedSuggestion((prev) =>
@@ -62,6 +65,7 @@ export function useGuessInput<
           ? 0
           : prev + 1
       );
+      setSelectDirection(1);
     } else if (
       e.key === "Enter" &&
       selectedSuggestion >= 0
@@ -199,6 +203,7 @@ export function useGuessInput<
       suggestions,
       showSuggestions,
       selectedSuggestion,
+      selectDirection,
       errorMessage,
       handleChange,
       handleClean,
@@ -213,6 +218,7 @@ export function useGuessInput<
       suggestions,
       showSuggestions,
       selectedSuggestion,
+      selectDirection,
       errorMessage,
       handleChange,
       handleClean,
