@@ -2,10 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { WarframesRepository } from './warframes.repository';
 import { UtilsService } from '../../utils/utils.service';
 import { WarframeDto } from 'shared/src/dtos/warframe.dto';
-import {
-  WARFRAME_COMPARISON_CONFIG,
-  ComparisonResult,
-} from 'shared/src/config/warframeComparison.config';
 import { compareWarframes } from './checkAnswer/checkAnswer.utils';
 
 @Injectable()
@@ -14,12 +10,6 @@ export class WarframesService {
     private readonly warframesRepo: WarframesRepository,
     private utilities: UtilsService,
   ) {}
-
-  getYearComparison(guessYear: number, actualYear: number): ComparisonResult {
-    if (guessYear < actualYear) return 'higher';
-    if (guessYear > actualYear) return 'lower';
-    return 'exact';
-  }
 
   async getDailyWarframe() {
     const length = await this.warframesRepo.countAll();

@@ -1,5 +1,5 @@
 {
-  "id": "b341d9b0-529e-4c35-8c17-98f7f27f9dcd",
+  "id": "4cef4b9e-6d8d-46f9-b3e1-89d99598d892",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -14,21 +14,58 @@
           "primaryKey": true,
           "notNull": true
         },
+        "unique_name": {
+          "name": "unique_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "name": {
           "name": "name",
-          "type": "varchar(100)",
+          "type": "varchar(150)",
           "primaryKey": false,
           "notNull": true
         },
         "type": {
           "name": "type",
-          "type": "varchar(50)",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_prime": {
+          "name": "is_prime",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "aura": {
+          "name": "aura",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passive": {
+          "name": "passive",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "release_year": {
+          "name": "release_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "release_date": {
+          "name": "release_date",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false
         },
         "description": {
           "name": "description",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -56,28 +93,64 @@
           "primaryKey": false,
           "notNull": false
         },
-        "is_prime": {
-          "name": "is_prime",
-          "type": "boolean",
+        "polarities": {
+          "name": "polarities",
+          "type": "varchar(100)[]",
           "primaryKey": false,
-          "notNull": false,
-          "default": false
+          "notNull": false
         },
-        "release_date": {
-          "name": "release_date",
-          "type": "varchar(20)",
+        "sex": {
+          "name": "sex",
+          "type": "varchar(10)",
           "primaryKey": false,
           "notNull": false
         },
         "image_name": {
           "name": "image_name",
-          "type": "varchar(255)",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "thumbnail_url": {
+          "name": "thumbnail_url",
+          "type": "varchar(500)",
           "primaryKey": false,
           "notNull": false
         },
         "wiki_url": {
           "name": "wiki_url",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "exalted": {
+          "name": "exalted",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_exalted": {
+          "name": "has_exalted",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "themes": {
+          "name": "themes",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "progenitor": {
+          "name": "progenitor",
           "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "playstyle": {
+          "name": "playstyle",
+          "type": "text[]",
           "primaryKey": false,
           "notNull": false
         },
@@ -91,6 +164,87 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.abilities": {
+      "name": "abilities",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "warframe_id": {
+          "name": "warframe_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unique_name": {
+          "name": "unique_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_name": {
+          "name": "image_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "thumbnail_url": {
+          "name": "thumbnail_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_thumbnail_url": {
+          "name": "card_thumbnail_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "augments": {
+          "name": "augments",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "abilities_warframe_id_warframes_id_fk": {
+          "name": "abilities_warframe_id_warframes_id_fk",
+          "tableFrom": "abilities",
+          "tableTo": "warframes",
+          "columnsFrom": [
+            "warframe_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},

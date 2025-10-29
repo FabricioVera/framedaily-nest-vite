@@ -2,6 +2,7 @@ interface WarframeDto {
     id: number;
     uniqueName: string | null;
     name: string;
+    passive: string | null;
     type: string | null;
     isPrime: boolean | null;
     aura: string | null;
@@ -18,6 +19,11 @@ interface WarframeDto {
     thumbnailUrl: string | null;
     wikiUrl: string | null;
     exalted: string[] | null;
+    hasExalted: boolean | null;
+    themes: string[] | null;
+    progenitor: string | null;
+    playstyle: string[] | null;
+    codexSecret: boolean | null;
     createdAt: Date | null;
 }
 
@@ -34,8 +40,8 @@ interface AbilitiesDto {
     imageName: string | null;
 }
 
-type ComparisonResult = "exact" | "incorrect" | "higher" | "lower" | "boolean_match" | "boolean_mismatch";
-type ComparisonType = "exact" | "year" | "boolean";
+type ComparisonResult = "exact" | "incorrect" | "higher" | "lower" | "boolean_match" | "boolean_mismatch" | "partial";
+type ComparisonType = "exact" | "year" | "boolean" | "array";
 interface FieldConfig<T> {
     key: keyof T;
     type: ComparisonType;

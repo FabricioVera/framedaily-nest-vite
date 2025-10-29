@@ -11,7 +11,7 @@ function getBaseName(name: string): string {
 
 async function seedWarframes() {
   const data = JSON.parse(
-    fs.readFileSync(`${__dirname}/json/Warframes.json`, 'utf-8'),
+    fs.readFileSync(`${__dirname}/json/Warframes_final.json`, 'utf-8'),
   );
 
   await db.delete(abilities);
@@ -31,6 +31,7 @@ async function seedWarframes() {
       .values({
         uniqueName: wf.uniqueName,
         name: wf.name,
+        passive: wf.passive,
         type: wf.type,
         isPrime: wf.isPrime,
         aura: wf.aura,
@@ -49,6 +50,11 @@ async function seedWarframes() {
         wikiUrl: wf.wikiaUrl,
         thumbnailUrl: wf.wikiaThumbnail,
         exalted: wf.exalted || [false],
+        hasExalted: wf.exalted ? true : false,
+        themes: wf.themes || null,
+        progenitor: wf.progenitor,
+        playstyle: wf.playstyle || null,
+        codexSecret: wf.codexSecret || false,
       })
       .onConflictDoNothing()
       .returning({ id: warframes.id });
@@ -71,6 +77,8 @@ async function seedWarframes() {
         name: ab.name,
         description: ab.description,
         thumbnailUrl: '/img/' + ab.imageName,
+        cardThumbnailUrl: 'https://wiki.warframe.com/images/' + ab.cardImage,
+        augments: ab.augments,
       }));
 
       await db.insert(abilities).values(abilityValues).onConflictDoNothing();

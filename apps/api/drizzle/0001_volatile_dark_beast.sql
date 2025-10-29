@@ -1,0 +1,1 @@
+ALTER TABLE "warframes" ADD COLUMN "codex_secret" boolean DEFAULT false;

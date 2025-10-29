@@ -6,12 +6,14 @@ export type ComparisonResult =
   | "higher"
   | "lower"
   | "boolean_match"
-  | "boolean_mismatch";
+  | "boolean_mismatch"
+  | "partial";
 
 export type ComparisonType =
   | "exact"
   | "year"
-  | "boolean";
+  | "boolean"
+  | "array";
 
 export interface FieldConfig<T> {
   key: keyof T;
@@ -21,7 +23,8 @@ export interface FieldConfig<T> {
     | "text"
     | "boolean"
     | "year"
-    | "image";
+    | "image"
+    | "array";
   isComparable?: boolean;
 }
 
@@ -70,10 +73,24 @@ export const WARFRAME_COMPARISON_CONFIG: FieldConfig<WarframeDto>[] =
       isComparable: true,
     },
     {
-      key: "exalted",
+      key: "hasExalted",
       type: "boolean",
-      label: "Exaltado",
+      label: "Tiene Exaltada",
       displayType: "boolean",
+      isComparable: true,
+    },
+    {
+      key: "playstyle",
+      type: "array",
+      label: "Playstyle",
+      displayType: "array",
+      isComparable: true,
+    },
+    {
+      key: "progenitor",
+      type: "exact",
+      label: "Progenitor",
+      displayType: "text",
       isComparable: true,
     },
   ];

@@ -11,4 +11,6 @@ export const abilities = pgTable('abilities', {
   description: text('description'),
   imageName: varchar('image_name', { length: 255 }),
   thumbnailUrl: varchar('thumbnail_url', { length: 255 }),
+  cardThumbnailUrl: varchar('card_thumbnail_url', { length: 255 }),
+  augments: varchar('augments', { length: 255 }).array(),
 });

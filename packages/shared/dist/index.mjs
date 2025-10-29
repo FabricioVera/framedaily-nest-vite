@@ -1,16 +1,16 @@
 // src/config/warframeComparison.config.ts
 var WARFRAME_COMPARISON_CONFIG = [
   {
-    key: "name",
+    key: "thumbnailUrl",
     type: "exact",
-    label: "Nombre",
-    displayType: "text",
+    label: "Imagen",
+    displayType: "image",
     isComparable: false
   },
   {
-    key: "type",
+    key: "name",
     type: "exact",
-    label: "Tipo",
+    label: "Nombre",
     displayType: "text",
     isComparable: true
   },
@@ -43,10 +43,24 @@ var WARFRAME_COMPARISON_CONFIG = [
     isComparable: true
   },
   {
-    key: "exalted",
+    key: "hasExalted",
     type: "boolean",
-    label: "Exaltado",
+    label: "Tiene Exaltada",
     displayType: "boolean",
+    isComparable: true
+  },
+  {
+    key: "progenitor",
+    type: "exact",
+    label: "Progenitor",
+    displayType: "text",
+    isComparable: true
+  },
+  {
+    key: "playstyle",
+    type: "array",
+    label: "Playstyle",
+    displayType: "text",
     isComparable: true
   }
 ];

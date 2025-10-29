@@ -13,6 +13,7 @@ export function compareWarframes(
 
     if (guessedValue === undefined || actualValue === undefined) continue;
 
+    console.log(type);
     switch (type) {
       case 'year':
         fieldMatches[key as string] = compareYears(guessedValue, actualValue);
@@ -20,6 +21,28 @@ export function compareWarframes(
       case 'boolean':
         fieldMatches[key as string] =
           guessedValue === actualValue ? 'exact' : 'incorrect';
+        break;
+      case 'array':
+        if (!Array.isArray(guessedValue) || !Array.isArray(actualValue)) {
+          fieldMatches[key as string] = 'incorrect';
+          break;
+        }
+        let matchesCount = 0;
+        for (const item of guessedValue) {
+          if (actualValue.includes(item)) {
+            matchesCount++;
+          }
+        }
+        fieldMatches[key as string] = 'incorrect';
+
+        if (matchesCount > 0) {
+          fieldMatches[key as string] = 'partial';
+          console.log('partial');
+          if (matchesCount === actualValue.length) {
+            fieldMatches[key as string] = 'exact';
+            console.log('exact');
+          }
+        }
         break;
       case 'exact':
       default:

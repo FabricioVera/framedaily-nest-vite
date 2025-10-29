@@ -1,6 +1,6 @@
 {
-  "id": "d3383afa-2bab-4ca3-9850-e2deb5986790",
-  "prevId": "b341d9b0-529e-4c35-8c17-98f7f27f9dcd",
+  "id": "44a609bc-bb76-40a8-8517-ea5a656911bf",
+  "prevId": "4cef4b9e-6d8d-46f9-b3e1-89d99598d892",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -42,6 +42,12 @@
         "aura": {
           "name": "aura",
           "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passive": {
+          "name": "passive",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -87,6 +93,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "polarities": {
+          "name": "polarities",
+          "type": "varchar(100)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
         "sex": {
           "name": "sex",
           "type": "varchar(10)",
@@ -99,8 +111,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "wikia_thumbnail": {
-          "name": "wikia_thumbnail",
+        "thumbnail_url": {
+          "name": "thumbnail_url",
           "type": "varchar(500)",
           "primaryKey": false,
           "notNull": false
@@ -110,6 +122,44 @@
           "type": "varchar(500)",
           "primaryKey": false,
           "notNull": false
+        },
+        "exalted": {
+          "name": "exalted",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_exalted": {
+          "name": "has_exalted",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "themes": {
+          "name": "themes",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "progenitor": {
+          "name": "progenitor",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "playstyle": {
+          "name": "playstyle",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "codex_secret": {
+          "name": "codex_secret",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
         },
         "created_at": {
           "name": "created_at",
@@ -121,6 +171,87 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.abilities": {
+      "name": "abilities",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "warframe_id": {
+          "name": "warframe_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unique_name": {
+          "name": "unique_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_name": {
+          "name": "image_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "thumbnail_url": {
+          "name": "thumbnail_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_thumbnail_url": {
+          "name": "card_thumbnail_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "augments": {
+          "name": "augments",
+          "type": "varchar(255)[]",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "abilities_warframe_id_warframes_id_fk": {
+          "name": "abilities_warframe_id_warframes_id_fk",
+          "tableFrom": "abilities",
+          "tableTo": "warframes",
+          "columnsFrom": [
+            "warframe_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},

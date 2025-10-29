@@ -16,6 +16,7 @@ export const warframes = pgTable('warframes', {
   type: varchar('type', { length: 100 }),
   isPrime: boolean('is_prime').default(false),
   aura: varchar('aura', { length: 100 }),
+  passive: text('passive'),
   releaseYear: integer('release_year'),
   releaseDate: varchar('release_date', { length: 20 }),
   description: text('description'),
@@ -29,5 +30,10 @@ export const warframes = pgTable('warframes', {
   thumbnailUrl: varchar('thumbnail_url', { length: 500 }),
   wikiUrl: varchar('wiki_url', { length: 500 }),
   exalted: text('exalted').array(),
+  hasExalted: boolean('has_exalted').default(false),
+  themes: varchar('themes', { length: 255 }).array(),
+  progenitor: varchar('progenitor', { length: 255 }),
+  playstyle: text('playstyle').array(),
+  codexSecret: boolean('codex_secret').default(false),
   createdAt: timestamp('created_at').defaultNow(),
 });

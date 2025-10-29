@@ -2,6 +2,7 @@ export interface WarframeDto {
   id: number;
   uniqueName: string | null;
   name: string;
+  passive: string | null;
   type: string | null;
   isPrime: boolean | null;
   aura: string | null;
@@ -18,5 +19,10 @@ export interface WarframeDto {
   thumbnailUrl: string | null;
   wikiUrl: string | null;
   exalted: string[] | null;
+  hasExalted: boolean | null;
+  themes: string[] | null;
+  progenitor: string | null;
+  playstyle: string[] | null;
+  codexSecret: boolean | null;
   createdAt: Date | null;
 }

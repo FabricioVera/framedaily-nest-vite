@@ -39,6 +39,8 @@ export function WarframeGuessedRow({
       match === "higher"
     )
       return "bg-red-800 text-white opacity-80";
+    if (match === "partial")
+      return "bg-amber-200 text-white";
     return "";
   };
 
@@ -90,6 +92,8 @@ export function WarframeGuessedRow({
               const displayBool =
                 value === true ? "Sí" : "No";
               return displayBool;
+            case "array":
+              return value.join(", ");
             case "year":
               return (
                 <>
