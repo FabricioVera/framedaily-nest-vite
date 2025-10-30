@@ -105,7 +105,29 @@ export function useGuessInput<
             normalizeString(item.name)
           )
       )
-      .slice(0, 10);
+      .sort((a, b) => {
+        const nameA = normalizeString(a.name);
+        const nameB = normalizeString(b.name);
+
+        const aStartsWith = nameA.startsWith(
+          normalizedValue
+        );
+        const bStartsWith = nameB.startsWith(
+          normalizedValue
+        );
+
+        // Prioridad 1: 'a' empieza con el valor, 'b' no -> 'a' va primero
+        if (aStartsWith && !bStartsWith)
+          return -1;
+
+        // Prioridad 2: 'b' empieza con el valor, 'a' no -> 'b' va primero
+        if (!aStartsWith && bStartsWith) return 1;
+
+        // Prioridad 3: Ambos empiezan o ninguno empieza
+        // Ordenar alfabéticamente como desempate
+        return nameA.localeCompare(nameB);
+      })
+      .slice(0, 5);
 
     setSuggestions(filtered);
     // Mostrar solo si existen sugerencias

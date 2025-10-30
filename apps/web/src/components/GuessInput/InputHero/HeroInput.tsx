@@ -1,14 +1,12 @@
 import { motion } from "framer-motion";
 
 interface HeroInputProps {
-  key: number;
   itemName: string;
   thumbnailUrl: string | undefined;
   selectDirection: number;
 }
 
 export function HeroInput({
-  key,
   itemName,
   thumbnailUrl,
   selectDirection,
@@ -27,7 +25,6 @@ export function HeroInput({
 
   return (
     <motion.section
-      key={key}
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.98 }}
@@ -38,7 +35,6 @@ export function HeroInput({
       className="relative w-auto h-[40vh] md:h-[50vh] flex items-end justify-center overflow-hidden rounded-2xl shadow-lg mb-5 bg-sidebar"
     >
       <img
-        key={key}
         className="absolute inset-0 w-full h-full object-cover brightness-75 mask-fade-bottom"
         src={thumbnailUrl}
         alt=""
