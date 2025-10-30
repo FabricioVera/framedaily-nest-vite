@@ -1,5 +1,3 @@
-// src/pages/Home.tsx
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   ShovelIcon,
@@ -8,7 +6,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#00081f] text-[#f6f6f6] p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-(--color-theme-background) text-[#f6f6f6] p-6">
       <h1 className="text-5xl font-bold mb-4 text-[#ddc57d]">
         FrameDaily
       </h1>
