@@ -101,7 +101,6 @@ async function seedWarframes() {
     }
   }
 
-  console.log(`✅ Se cargaron ${data.length} warframes en la base de datos.`);
   process.exit(0);
 }
 
