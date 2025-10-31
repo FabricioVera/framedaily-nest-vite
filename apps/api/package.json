@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "db:seed": "ts-node src/database/schema/seed-warframes.ts",
-    "db:seedb": "node dist/database/schema/seed-warframes.js",
+    "db:seedb": "node dist/src/database/schema/seed-warframes.js",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
