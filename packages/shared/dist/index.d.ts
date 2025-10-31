@@ -46,7 +46,7 @@ interface FieldConfig<T> {
     key: keyof T;
     type: ComparisonType;
     label?: string;
-    displayType?: "text" | "boolean" | "year" | "image";
+    displayType?: "text" | "boolean" | "year" | "image" | "array";
     isComparable?: boolean;
 }
 declare const WARFRAME_COMPARISON_CONFIG: FieldConfig<WarframeDto>[];

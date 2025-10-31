@@ -2,8 +2,7 @@
 
 @font-face {
   font-family: "Nippo";
-  src: url("/fonts/Nippo/Nippo-Extralight.woff2")
-    format("woff2");
+  src: url("/fonts/Nippo/Nippo-Extralight.woff2") format("woff2");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -11,8 +10,7 @@
 
 @font-face {
   font-family: "Nippo";
-  src: url("/fonts/Nippo/Nippo-Light.woff2")
-    format("woff2");
+  src: url("/fonts/Nippo/Nippo-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -20,8 +18,7 @@
 
 @font-face {
   font-family: "Nippo";
-  src: url("/fonts/Nippo/Nippo-Regular.woff2")
-    format("woff2");
+  src: url("/fonts/Nippo/Nippo-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -29,8 +26,7 @@
 
 @font-face {
   font-family: "Nippo";
-  src: url("/fonts/Nippo/Nippo-Medium.woff2")
-    format("woff2");
+  src: url("/fonts/Nippo/Nippo-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -38,8 +34,7 @@
 
 @font-face {
   font-family: "Nippo";
-  src: url("/fonts/Nippo/Nippo-Variable.woff2")
-    format("woff2");
+  src: url("/fonts/Nippo/Nippo-Variable.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -47,8 +42,7 @@
 
 @font-face {
   font-family: "Nippo";
-  src: url("/fonts/Nippo/Nippo-Bold.woff2")
-    format("woff2");
+  src: url("/fonts/Nippo/Nippo-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -70,32 +64,20 @@
   );
 
   --color-theme-primary: var(--color-rich-black);
-  --color-theme-secondary: var(
-    --color-dark-purple
-  );
-  --color-theme-terciary: var(
-    var(--color-space-cadet)
-  );
+  --color-theme-secondary: var(--color-dark-purple);
+  --color-theme-terciary: var(--color-space-cadet);
   --color-theme-accent: var(--color-fuchsia);
-  --color-theme-background: var(
-    --color-rich-black
-  );
+  --color-theme-secondary-accent: var(--color-flax);
+  --color-theme-background: var(--color-rich-black);
   --color-theme-text: var(--color-silver);
-  --color-theme-border: var(
-    var(--color-space-gray)
-  );
+  --color-theme-border: var(--color-space-gray);
 
   --sidebar: #21213b !important;
   --sidebar-50: #21213b83 !important;
   --sidebar-foreground: #ffffff !important;
   --sidebar-primary: #d9ac79;
   --sidebar-primary-foreground: #d9ac79;
-  --sidebar-accent: rgba(
-    40,
-    100,
-    200,
-    0.3
-  ) !important;
+  --sidebar-accent: rgba(40, 100, 200, 0.3) !important;
   --sidebar-accent-foreground: #e0ffff !important;
   --sidebar-border: #145e80 !important;
   --sidebar-ring: #d9ac79 !important;
@@ -142,65 +124,27 @@
   background: transparent !important;
   text-shadow: 0 0 5px var(--color-holo-glow);
   padding: 20px;
-  animation: hologram-pulse 4s infinite alternate
-    ease-in-out;
+  animation: hologram-pulse 4s infinite alternate ease-in-out;
 }
 
 @keyframes hologram-pulse {
   0% {
     box-shadow: inset 0 0 30px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 60%,
-          transparent
-        ),
+        color-mix(in srgb, var(--color-holo-glow) 60%, transparent),
       0 0 10px var(--color-holo-glow),
-      0 0 20px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 20%,
-          transparent
-        );
+      0 0 20px color-mix(in srgb, var(--color-holo-glow) 20%, transparent);
   }
   50% {
     box-shadow: inset 0 0 30px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 50%,
-          transparent
-        ),
-      0 0 15px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 70%,
-          transparent
-        ),
-      0 0 25px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 30%,
-          transparent
-        );
+        color-mix(in srgb, var(--color-holo-glow) 50%, transparent),
+      0 0 15px color-mix(in srgb, var(--color-holo-glow) 70%, transparent),
+      0 0 25px color-mix(in srgb, var(--color-holo-glow) 30%, transparent);
   }
   100% {
     box-shadow: inset 0 0 30px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 50%,
-          transparent
-        ),
-      0 0 10px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 60%,
-          transparent
-        ),
-      0 0 20px
-        color-mix(
-          in srgb,
-          var(--color-holo-glow) 20%,
-          transparent
-        );
+        color-mix(in srgb, var(--color-holo-glow) 50%, transparent),
+      0 0 10px color-mix(in srgb, var(--color-holo-glow) 60%, transparent),
+      0 0 20px color-mix(in srgb, var(--color-holo-glow) 20%, transparent);
   }
 }
 
@@ -252,38 +196,19 @@ div#root {
 }
 
 @utility mask-fade-bottom {
-  mask-image: linear-gradient(
-    to bottom,
-    black 80%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
 @utility mask-fade-bottom-quick {
-  mask-image: linear-gradient(
-    to bottom,
-    black 95%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
 }
 
 .css-3d-text {
-  font-size: 70px;
-  color: #9cd6ff;
-  font-family: "Roboto Mono", monospace;
-  font-weight: bold;
-  text-shadow: 0px 0px 0 rgb(147, 205, 246),
-    1px 1px 0 rgb(138, 196, 237),
-    2px 2px 0 rgb(128, 186, 227),
-    3px 3px 0 rgb(119, 177, 218),
-    4px 4px 0 rgb(110, 168, 209),
-    5px 5px 0 rgb(101, 159, 200),
-    6px 6px 0 rgb(92, 150, 191),
-    7px 7px 0 rgb(82, 140, 181),
-    8px 8px 0 rgb(73, 131, 172),
-    9px 9px 0 rgb(64, 122, 163),
-    10px 10px 0 rgb(55, 113, 154),
-    11px 11px 10px rgba(34, 53, 105, 1),
-    11px 11px 1px rgba(34, 53, 105, 0.5),
-    0px 0px 10px rgba(34, 53, 105, 0.2);
+  letter-spacing: 3px;
+  text-shadow: 0px 0px 0 rgb(149, 149, 149), 0px 1px 0 rgb(137, 137, 137),
+    0px 2px 0 rgb(125, 125, 125), 0px 3px 0 rgb(112, 112, 112),
+    0px 4px 0 rgb(100, 100, 100), 0px 5px 0 rgb(88, 88, 88),
+    0px 6px 0 rgb(76, 76, 76), 0px 7px 0 rgb(64, 64, 64),
+    0px 8px 7px rgba(0, 8, 31, 0.43), 0px 8px 1px rgba(0, 8, 31, 0.5),
+    0px 0px 7px rgba(0, 8, 31, 0.2);
 }

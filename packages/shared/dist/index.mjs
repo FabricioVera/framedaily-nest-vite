@@ -50,16 +50,16 @@ var WARFRAME_COMPARISON_CONFIG = [
     isComparable: true
   },
   {
-    key: "progenitor",
-    type: "exact",
-    label: "Progenitor",
-    displayType: "text",
-    isComparable: true
-  },
-  {
     key: "playstyle",
     type: "array",
     label: "Playstyle",
+    displayType: "array",
+    isComparable: true
+  },
+  {
+    key: "progenitor",
+    type: "exact",
+    label: "Progenitor",
     displayType: "text",
     isComparable: true
   }
