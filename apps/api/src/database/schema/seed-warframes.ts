@@ -2,27 +2,37 @@ import 'dotenv/config';
 import { db } from '../../data-source';
 import { warframes } from './warframes.schema';
 import { abilities } from './abilities.schema';
-import fs from 'fs';
+import { createReadStream } from 'fs';
 import { sql } from 'drizzle-orm';
+
+import { parser } from 'stream-json/Parser';
+import { streamArray } from 'stream-json/streamers/StreamArray';
 
 function getBaseName(name: string): string {
   return name.replace(/\s*Prime\s*$/, '');
 }
 
 async function seedWarframes() {
-  const data = JSON.parse(
-    fs.readFileSync(`${__dirname}/json/Warframes_final.json`, 'utf-8'),
-  );
-
+  console.log('Borrando datos antiguos...');
   await db.delete(abilities);
   await db.delete(warframes);
   await db.execute(sql`ALTER SEQUENCE abilities_id_seq RESTART WITH 1;`);
   await db.execute(sql`ALTER SEQUENCE warframes_id_seq RESTART WITH 1;`);
+  console.log('Datos antiguos borrados.');
 
   const ignoreNames = ['Helminth', 'Voidrig', 'Bonewidow'];
   const processedWarframes = new Set<string>();
 
-  for (const wf of data) {
+  console.log('Iniciando streaming del archivo JSON...');
+  const stream = createReadStream(`${__dirname}/json/Warframes_final.json`)
+    .pipe(parser())
+    .pipe(streamArray());
+
+  let warframeCount = 0;
+
+  for (const chunk of stream) {
+    const wf = chunk.value; // 'wf' es ahora un solo objeto Warframe del array
+    warframeCount++;
     // Ignorar tipos y nombres no deseados
     if (wf.type !== 'Warframe' || ignoreNames.includes(wf.name)) continue;
 
